@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Skrining Kesehatan Online</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Skrining Kesehatan Mandiri</h1>
+  <form id="screeningForm">
+    <label>Apakah Anda sering merasa pusing?</label><br>
+    <input type="radio" name="q1" value="yes"> Ya
+    <input type="radio" name="q1" value="no"> Tidak<br><br>
+
+    <label>Apakah Anda memiliki riwayat tekanan darah tinggi?</label><br>
+    <input type="radio" name="q2" value="yes"> Ya
+    <input type="radio" name="q2" value="no"> Tidak<br><br>
+
+    <label>Apakah Anda sering merasa lelah?</label><br>
+    <input type="radio" name="q3" value="yes"> Ya
+    <input type="radio" name="q3" value="no"> Tidak<br><br>
+
+    <button type="button" onclick="checkResult()">Lihat Hasil Skrining</button>
+  </form>
+
+  <div id="result" style="margin-top:20px;"></div>
+
+  <footer>
+    <p><a href="https://wa.me/6281234567890" target="_blank">Konsultasi via WhatsApp</a> | <a href="#">Kontak</a></p>
+  </footer>
+
+  <script>
+    function checkResult() {
+      const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+      const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+      const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+
+      if (!q1 || !q2 || !q3) {
+        document.getElementById('result').innerHTML = "<p style='color:red;'>Harap isi semua pertanyaan terlebih dahulu.</p>";
+        return;
+      }
+
+      let risk = 0;
+      if (q1 === "yes") risk++;
+      if (q2 === "yes") risk++;
+      if (q3 === "yes") risk++;
+
+      let message = "";
+      if (risk === 0) {
+        message = "Risiko Anda rendah. Tetap jaga kesehatan!";
+      } else if (risk === 1) {
+        message = "Risiko Anda sedang. Disarankan konsultasi lebih lanjut.";
+      } else {
+        message = "Risiko Anda tinggi. Segera konsultasi dengan tenaga kesehatan.";
+      }
+
+      document.getElementById('result').innerHTML = "<strong>Hasil Skrining:</strong><br><p>" + message + "</p>";
+    }
+  </script>
+</body>
+</html>
